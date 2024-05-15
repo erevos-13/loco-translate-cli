@@ -7,8 +7,10 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+//* API key for Loco
 let API_KEY_LOCO = "5vnmqW7NAGTpvvDhYK7lEHYDYPI2_MH0F";
+let locale = "en";
+
 const flattenObject = (obj, prefix = "") => {
   return Object.keys(obj).reduce((acc, k) => {
     const pre = prefix.length ? prefix + "." : "";
@@ -63,9 +65,10 @@ const postToEndpoint = async () => {
   }
 };
 
-const getFromEndpoint = async () => {
+const getFromEndpoint = async (locale) => {
   try {
-    const url = `https://localise.biz/api/export/locale/en.json?key=${API_KEY_LOCO}&fallback=en`;
+    console.log(chalk.white.bgGray("Getting from loco"));
+    const url = `https://localise.biz/api/export/locale/${locale}.json?key=${API_KEY_LOCO}&fallback=en`;
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -76,36 +79,15 @@ const getFromEndpoint = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const jsonTranslation = await response.json();
-    // const buffer = Buffer.from(arrayBuffer);
-    // fs.writeFileSync("temp.zip", buffer);
-    fs.writeFileSync("temp.json", JSON.stringify(jsonTranslation, null, 2));
+    fs.writeFileSync(
+      `${locale}.json`,
+      JSON.stringify(jsonTranslation, null, 2)
+    );
     console.log(chalk.white.bgGray("File downloaded"));
   } catch (error) {
     console.error(chalk.red.bgWhite("Error during get from loco"), error);
     throw error;
   }
-};
-
-const extractNestedJsonFiles = (dir) => {
-  let jsonFiles = [];
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
-
-    if (stat.isDirectory()) {
-      console.log("dir", filePath);
-      jsonFiles = jsonFiles.concat(extractNestedJsonFiles(filePath));
-    } else if (stat.isFile() && file.endsWith(".json")) {
-      jsonFiles.push(filePath);
-    }
-  }
-  return jsonFiles;
-};
-const renameFile = (oldPath, newFileName) => {
-  const dir = path.dirname(oldPath);
-  const newPath = path.join(dir, newFileName);
-  fs.renameSync(oldPath, newPath);
 };
 
 const writeToFileInNewLocation = (filePath, newLocation, content) => {
@@ -114,10 +96,14 @@ const writeToFileInNewLocation = (filePath, newLocation, content) => {
   fs.writeFileSync(newPath, content, "utf8");
 };
 
-const extractZip = async () => {
+const extractZip = async (locale) => {
   try {
-    const fileContent = fs.readFileSync("./en.json", "utf8");
-    writeToFileInNewLocation("./en.json", "./testTarget/i18n", fileContent);
+    const fileContent = fs.readFileSync(`./${locale}.json`, "utf8");
+    writeToFileInNewLocation(
+      `./${locale}.json`,
+      "./testTarget/i18n",
+      fileContent
+    );
     console.log("Extraction complete");
   } catch (err) {
     console.error(chalk.white.bgRed("Error on extract file"), err);
@@ -160,13 +146,14 @@ const getFromUserTheParams = async () => {
   const questions = [
     "Please provide the API key for Loco: ",
     "Please provide the path to the translation file: ",
+    "Please provide the locale that you want to extract: ",
   ];
   for (let index = 0; index < questions.length; index++) {
     const param = await getTheArguments(questions[index]);
     params.push(param);
   }
   console.log(chalk.black.bgCyan("Params: "), params);
-  if (params.length === 2) {
+  if (params.length === 3) {
     API_KEY_LOCO = "J4XWEeVy_gDH6JriwrqzvCZq4qhS8_hdw"; //params[0];
     // copyTranslation(params[1]);
     copyTranslation("./translation.json");
@@ -175,8 +162,12 @@ const getFromUserTheParams = async () => {
   }
 
   postToEndpoint()
-    .then(() => getFromEndpoint())
-    .then(() => extractZip())
+    .then(() => getFromEndpoint(params[2]))
+    .then(() => extractZip(params[2]))
+    .then(() => {
+      console.log(chalk.greenBright("Process completed"));
+      fs.unlinkSync(`./${locale}.json`);
+    })
     .catch((error) => console.error(error));
 };
 
