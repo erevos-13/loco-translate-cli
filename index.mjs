@@ -96,14 +96,10 @@ const writeToFileInNewLocation = (filePath, newLocation, content) => {
   fs.writeFileSync(newPath, content, "utf8");
 };
 
-const extractZip = async (locale) => {
+const extractLocale = async (locale, destinationFile) => {
   try {
     const fileContent = fs.readFileSync(`./${locale}.json`, "utf8");
-    writeToFileInNewLocation(
-      `./${locale}.json`,
-      "./testTarget/i18n",
-      fileContent
-    );
+    writeToFileInNewLocation(`./${locale}.json`, destinationFile, fileContent);
     console.log("Extraction complete");
   } catch (err) {
     console.error(chalk.white.bgRed("Error on extract file"), err);
@@ -128,32 +124,41 @@ console.log(
 );
 
 const getTheArguments = (paramQuestion) => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(paramQuestion, (name) => {
-      rl.close();
-      resolve(name);
+  try {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
     });
-  });
+
+    return new Promise((resolve) => {
+      rl.question(paramQuestion, (name) => {
+        rl.close();
+        resolve(name);
+      });
+    });
+  } catch (error) {
+    throw new Error("No Param provided");
+  }
 };
 
 const getFromUserTheParams = async () => {
   let params = [];
   const questions = [
     "Please provide the API key for Loco: ",
-    "Please provide the path to the translation file: ",
-    "Please provide the locale that you want to extract: ",
+    "Please provide the path where is going to get the translation \nand send to loco: ",
+    "Please provide the locale that you want to get: ",
+    "Please provide the path where is going to extract the translation file: ",
   ];
   for (let index = 0; index < questions.length; index++) {
     const param = await getTheArguments(questions[index]);
+    const trimmedParam = param.trim();
+    if (!trimmedParam || trimmedParam.length === 0 || trimmedParam === "") {
+      return console.log(chalk.white.bgRed("No selected params"));
+    }
     params.push(param);
   }
   console.log(chalk.black.bgCyan("Params: "), params);
-  if (params.length === 3) {
+  if (params.length === 4) {
     API_KEY_LOCO = "J4XWEeVy_gDH6JriwrqzvCZq4qhS8_hdw"; //params[0];
     // copyTranslation(params[1]);
     copyTranslation("./translation.json");
@@ -163,7 +168,7 @@ const getFromUserTheParams = async () => {
 
   postToEndpoint()
     .then(() => getFromEndpoint(params[2]))
-    .then(() => extractZip(params[2]))
+    .then(() => extractLocale(params[2], params[3]))
     .then(() => {
       console.log(chalk.greenBright("Process completed"));
       fs.unlinkSync(`./${locale}.json`);
