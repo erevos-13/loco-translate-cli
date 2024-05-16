@@ -198,7 +198,7 @@ const getFromUserTheParams = async () => {
       .then(() => extractLocale(params[2], params[3], params[4]))
       .then(() => {
         console.log(chalk.greenBright("Process completed"));
-        fs.unlinkSync(`./${params[4] ?? params[2]}.json`);
+        fs.unlinkSync(`./${params[2]}.json`);
       })
       .catch((error) => console.error(error));
   } catch (error) {
