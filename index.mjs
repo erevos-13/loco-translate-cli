@@ -41,7 +41,7 @@ const postToEndpoint = async () => {
   try {
     console.group("Posting to endpoint");
     const translationFile = await getTranslationFile("./translationCopy.json");
-    const url = `https://localise.biz/api/import/json?key=${API_KEY_LOCO}&locale=en&ignore-existing=true&tag-absent=obsolete&format=JSON`; // `https://localise.biz/api/import/json&locale=en&ignore-existing=true&tag-absent=obsolete&format=JSON&key=5vnmqW7NAGTpvvDhYK7lEHYDYPI2_MH0F`
+    const url = `https://localise.biz/api/import/json?key=${API_KEY_LOCO}&locale=en&ignore-existing=true&tag-absent=obsolete&format=JSON`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
