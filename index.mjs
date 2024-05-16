@@ -112,7 +112,8 @@ const extractLocale = async (locale, destinationFile) => {
 
 const copyTranslation = (param) => {
   try {
-    const sourcePath = path.resolve(__dirname, param);
+    const inputpath = path.join(__dirname, param);
+    const sourcePath = path.resolve(__dirname, inputpath);
     const destinationPath = path.resolve(__dirname, "./translationCopy.json");
 
     fs.copyFileSync(sourcePath, destinationPath);
