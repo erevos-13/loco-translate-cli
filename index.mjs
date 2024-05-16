@@ -176,7 +176,6 @@ const getFromUserTheParams = async () => {
       for (let index = 0; index < questions.length; index++) {
         const param = await getTheArguments(questions[index]);
         const trimmedParam = param.trim();
-        console.log(chalk.black.bgCyan("index & param: "), index, trimmedParam);
         if (index === 4 && trimmedParam === "") {
           continue;
         }
