@@ -186,7 +186,7 @@ const getFromUserTheParams = async () => {
       }
     }
     console.log(chalk.black.bgCyan("Params: "), params);
-    if (params.length > 4) {
+    if (params.length > 1) {
       API_KEY_LOCO = params[0];
     } else {
       console.log(chalk.white.bgRed("No Key is past"));
