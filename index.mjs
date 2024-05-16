@@ -164,7 +164,7 @@ const getFromUserTheParams = async () => {
     let params = [];
     const questions = [
       "Please provide the API key for Loco: ",
-      "Please provide the path where is going to get the translation \nand send to loco: ",
+      "Please provide the path where is going to get the translation \nand send to loco(file must be a json): ",
       "Please provide the locale that you want to get: ",
       "Please provide the path where is going to extract the translation file: ",
     ];
