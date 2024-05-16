@@ -1,0 +1,47 @@
+{
+  "EN": "English",
+  "EL": "Ελληνικά",
+  "OK": "Ok tell me",
+  "COMMON": {
+    "YES": "Yes",
+    "NO": "No",
+    "NEW": "New",
+    "PENDING": "Pending",
+    "CLOSED": "Closed",
+    "ID": "Id",
+    "NAME": "Name",
+    "ROW_VERSION": "rowVersion",
+    "FROM": "From",
+    "TO": "To",
+    "ALL": "All",
+    "ACTIVE": "Active",
+    "NOT_ACTIVE": "Not Active",
+    "EDIT_LIST_ICON": "Edit this row",
+    "DELETE_LIST_ICON": "Delete this item",
+    "EMAIL_LIST_ICON": "Add to Email List",
+    "EMPLOYEE_CARD_LIST_ICON": "View/Edit EmployeeCard",
+    "NONE_SELECTION": "No selection",
+    "CLEAR_FILTERS": "Clear Filters",
+    "APPLY_FILTERS": "Apply Filters",
+    "SEARCH": "Search",
+    "FILTER_ITEMS": "Filter items",
+    "FILTER_SEARCH_TITLE": "Filtered search",
+    "SUCCESSFULLY_SAVED": "Successfully saved",
+    "PRINT_UNABLE": "Unable to open print window. Please check your popup blocking settings."
+  },
+  "SIDE_NAVIGATION_MENU": {
+    "TITLE": "Navigation",
+    "POWERED_BY": "Powered by"
+  },
+  "USER_PANEL": {
+    "TOGGLE_THEME": "Toggle theme",
+    "SWITCH_LANGUAGE": "Switch language",
+    "LOGOUT": "Logout"
+  },
+  "DETAIL_COMMON": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "EDIT": "Edit",
+    "DELETE": "Delete"
+  }
+}
