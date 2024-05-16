@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+import boxen from "boxen";
 import chalk from "chalk";
 import fs from "fs";
 import fetch from "node-fetch";
@@ -8,7 +11,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 //* API key for Loco
-let API_KEY_LOCO = "5vnmqW7NAGTpvvDhYK7lEHYDYPI2_MH0F";
+let API_KEY_LOCO = "";
 let locale = "en";
 
 const flattenObject = (obj, prefix = "") => {
@@ -102,7 +105,8 @@ const extractLocale = async (locale, destinationFile) => {
     writeToFileInNewLocation(`./${locale}.json`, destinationFile, fileContent);
     console.log("Extraction complete");
   } catch (err) {
-    console.error(chalk.white.bgRed("Error on extract file"), err);
+    console.error(chalk.white.bgRed("Error on extract file"));
+    throw err;
   }
 };
 
@@ -113,15 +117,10 @@ const copyTranslation = (param) => {
 
     fs.copyFileSync(sourcePath, destinationPath);
   } catch (error) {
-    console.log(chalk.redBright("Error file during copy"), error);
+    console.log(chalk.redBright("Error file during copy"));
+    throw error;
   }
 };
-
-// Call the function immediately
-console.log(
-  chalk.blueBright("Process of getting the translations"),
-  process.argv
-);
 
 const getTheArguments = (paramQuestion) => {
   try {
@@ -142,38 +141,60 @@ const getTheArguments = (paramQuestion) => {
 };
 
 const getFromUserTheParams = async () => {
-  let params = [];
-  const questions = [
-    "Please provide the API key for Loco: ",
-    "Please provide the path where is going to get the translation \nand send to loco: ",
-    "Please provide the locale that you want to get: ",
-    "Please provide the path where is going to extract the translation file: ",
-  ];
-  for (let index = 0; index < questions.length; index++) {
-    const param = await getTheArguments(questions[index]);
-    const trimmedParam = param.trim();
-    if (!trimmedParam || trimmedParam.length === 0 || trimmedParam === "") {
-      return console.log(chalk.white.bgRed("No selected params"));
+  console.log(
+    "\n" +
+      boxen(
+        chalk.green(
+          "\n" +
+            "Loco CLI extractor" +
+            "\n" +
+            "Please answer in the question above to upload your translation and" +
+            "\n" +
+            "get the json file and added where you need in the you project"
+        ),
+        {
+          padding: 1,
+          borderColor: "green",
+          dimBorder: true,
+        }
+      ) +
+      "\n"
+  );
+  try {
+    let params = [];
+    const questions = [
+      "Please provide the API key for Loco: ",
+      "Please provide the path where is going to get the translation \nand send to loco: ",
+      "Please provide the locale that you want to get: ",
+      "Please provide the path where is going to extract the translation file: ",
+    ];
+    for (let index = 0; index < questions.length; index++) {
+      const param = await getTheArguments(questions[index]);
+      const trimmedParam = param.trim();
+      if (!trimmedParam || trimmedParam.length === 0 || trimmedParam === "") {
+        return console.log(chalk.white.bgRed("No selected params"));
+      }
+      params.push(param);
     }
-    params.push(param);
-  }
-  console.log(chalk.black.bgCyan("Params: "), params);
-  if (params.length === 4) {
-    API_KEY_LOCO = "J4XWEeVy_gDH6JriwrqzvCZq4qhS8_hdw"; //params[0];
-    // copyTranslation(params[1]);
-    copyTranslation("./translation.json");
-  } else {
-    console.log(chalk.white.bgRed("No selected params"));
-  }
+    console.log(chalk.black.bgCyan("Params: "), params);
+    if (params.length === 4) {
+      API_KEY_LOCO = params[0];
+      copyTranslation(params[1]);
+    } else {
+      console.log(chalk.white.bgRed("No selected params"));
+    }
 
-  postToEndpoint()
-    .then(() => getFromEndpoint(params[2]))
-    .then(() => extractLocale(params[2], params[3]))
-    .then(() => {
-      console.log(chalk.greenBright("Process completed"));
-      fs.unlinkSync(`./${locale}.json`);
-    })
-    .catch((error) => console.error(error));
+    postToEndpoint()
+      .then(() => getFromEndpoint(params[2]))
+      .then(() => extractLocale(params[2], params[3]))
+      .then(() => {
+        console.log(chalk.greenBright("Process completed"));
+        fs.unlinkSync(`./${locale}.json`);
+      })
+      .catch((error) => console.error(error));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 getFromUserTheParams();
