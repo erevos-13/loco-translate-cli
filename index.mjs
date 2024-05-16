@@ -176,7 +176,7 @@ const getFromUserTheParams = async () => {
       for (let index = 0; index < questions.length; index++) {
         const param = await getTheArguments(questions[index]);
         const trimmedParam = param.trim();
-        if (index === 4 && trimmedParam === "") {
+        if (index === 4 && (!trimmedParam || trimmedParam === "")) {
           continue;
         }
         if (!trimmedParam || trimmedParam.length === 0 || trimmedParam === "") {
