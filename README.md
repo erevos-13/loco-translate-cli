@@ -34,7 +34,6 @@ Please use the locoCli --help to display what params you need to pass
 
 `locoCli  --token <token> --translate <file to get the translation> --locale <locale> --extract <file where you are extracting> --filename <convert the name if you want>`
 
-`locoCli <key> <path translation> <language> <path extraction> <name of the file>`
 
 ---
 
