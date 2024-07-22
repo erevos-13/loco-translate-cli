@@ -3,6 +3,7 @@
   "version": "1.2.13",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "locoCli": "./index.mjs"
   },
