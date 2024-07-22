@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "locoCli": "./index.mjs"
+    "locoCli": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.mjs",
+    "start": "node index.js",
     "compile:translation": "npx tsc translation.ts",
     "copy:translation": "node copy-translation.js",
     "generate:translation": "npm run copy:translation && npm run compile:translation && npm run start"
@@ -22,5 +22,8 @@
     "chalk": "^5.3.0",
     "extract-zip": "^2.0.1",
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "yargs": "^17.7.2"
   }
 }

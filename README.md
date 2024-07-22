@@ -30,7 +30,24 @@ The cli expect params:
 
 ### Run the cli
 
+Please use the locoCli --help to display what params you need to pass
+
+`locoCli  --token <token> --translate <file to get the translation> --locale <locale> --extract <file where you are extracting> --filename <convert the name if you want>`
+
 `locoCli <key> <path translation> <language> <path extraction> <name of the file>`
+
+---
+
+## Options
+
+Options:
+  --help       Show help                                               [boolean]
+  --version    Show version number                                     [boolean]
+  --token      Your API token                                [string] [required]
+  --translate  Path where your translation json file is      [string] [required]
+  --locale     Provide the locale you want to get                       [string]
+  --extract    Path where you want to extract the file       [string] [required]
+  --filename   Provide the name for the extraction file                 [string]
 
 ---
 
