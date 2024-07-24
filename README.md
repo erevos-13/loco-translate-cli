@@ -1,12 +1,12 @@
 # loco-translate-cli
 
-Is just a cli for translate from loco and add the files you want in the project
+It is just a cli for translate for loco and adding the files you want in the project
 
 ---
 
 ## Description
 
-This is simple project of CLI that you can pass your json translate files and it will download the files from loco and add it to your project.
+This is a simple project of CLI that you can pass your JSON translate files and it will download the files from loco and add it to your project.
 
 ## Installation
 
