@@ -46,7 +46,8 @@ const parsedArgus = yargs(hideBin(process.argv))
     type: 'string',
     demandOption: false,
     requiresArg: false,
-    skipValidation: true
+    skipValidation: true,
+    default: ''
   })
   .option('extract', {
     describe: 'Path where you want to extract the file',
@@ -58,10 +59,10 @@ const parsedArgus = yargs(hideBin(process.argv))
   })
   .demandOption(['token', 'translate', 'extract'], 'Please provide all required options').argv 
 
-console.log('Token:', parsedArgus.token);
-console.log('File translation:', parsedArgus.translate);
-console.log('Locale:', parsedArgus.locale);
-console.log('Path where want to extract the file:', parsedArgus.extract);
-console.log('Name of the file:', parsedArgus.filename);
+console.log('Token:', chalk.greenBright(parsedArgus.token));
+console.log('File translation:', chalk.greenBright(parsedArgus.translate));
+console.log('Locale:', chalk.greenBright(parsedArgus.locale));
+console.log('Path where want to extract the file:', chalk.greenBright(parsedArgus.extract));
+console.log('Name of the file:', chalk.greenBright(parsedArgus.filename));
 
 export default parsedArgus 

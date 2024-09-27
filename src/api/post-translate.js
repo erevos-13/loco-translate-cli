@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import {URL} from './../utils/constants.js'
 import chalk from "chalk";
+import {createGzip} from 'node:zlib'
 import {getTranslationFile} from "./../file-manager/index.js";
 export const postToEndpoint = async (fileToSend, token) => {
   try {

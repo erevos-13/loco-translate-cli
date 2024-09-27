@@ -7,6 +7,9 @@ export const getLocales = async(token) =>{
         if(!locales) {
             throw new Error('Error getting locales');
         }
+        if (locales.ok){
+            return await locales.json();
+        }
         return locales;
         
     } catch (error) {
