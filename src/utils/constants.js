@@ -1,3 +1,1 @@
-export const URL = 'https://localise.biz/api'
-
-export let TOKEN = ''
+export const URL = 'https://localise.biz/api';

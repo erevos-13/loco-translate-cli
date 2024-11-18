@@ -48,8 +48,7 @@ export const createAndStoreFile = async (locale, destinationFile, content) => {
       console.log(`${destinationFile} create.`);
     }
     const newPath = path.join(destinationFile, `${locale}.json`);
-    const readableStream = Readable.from([JSON.stringify(content)]); // No need for Buffer.from here
-
+    const readableStream = Readable.from([JSON.stringify(content)]);
     await pipeline(readableStream, createWriteStream(newPath));
   } catch (error) {
     console.error(`Error creating file`, JSON.stringify(error, null, 4));

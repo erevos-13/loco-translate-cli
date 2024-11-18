@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+el.json
+en-x-emirates.json
+en.json
+translate.json
+.vscode/launch.json
