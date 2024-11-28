@@ -9,10 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "compile:translation": "npx tsc translation.ts",
-    "copy:translation": "node copy-translation.js",
-    "generate:translation": "npm run copy:translation && npm run compile:translation && npm run start"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
