@@ -2,10 +2,18 @@ import fetch from 'node-fetch';
 import chalk from 'chalk';
 import fs from 'fs';
 import { URL } from './../utils/constants.js';
-export const getFromEndpoint = async (locale, token) => {
+export const getFromEndpoint = async (locale, token, filter) => {
   try {
-    console.log(chalk.white.green('Getting from loco'), 'Locale:', chalk.greenBright.green(locale));
-    const url = `${URL}/export/locale/${locale}.json?key=${token}&fallback=en`;
+    console.log(
+      chalk.white.green('Getting from loco'),
+      'Locale:',
+      chalk.greenBright.green(locale),
+      'Filter:',
+      chalk.greenBright.green(filter)
+    );
+
+    const filterParam = filter && filter.length > 0 ? `&filter=${filter.join(',')}` : '';
+    const url = `${URL}/export/locale/${locale}.json?key=${token}&fallback=en${filterParam}`;
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',

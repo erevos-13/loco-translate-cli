@@ -12,7 +12,7 @@ export const server = async () => {
       throw new Error('Error posting translation');
     }
     if (cmdArgs.locale) {
-      await getFromEndpoint(cmdArgs.locale, cmdArgs.token);
+      await getFromEndpoint(cmdArgs.locale, cmdArgs.token, cmdArgs.filter);
       extractLocale(cmdArgs.locale, cmdArgs.extract, cmdArgs.filename);
       console.log(chalk.green('Process completed'));
       fs.unlinkSync(`./${cmdArgs.locale}.json`);

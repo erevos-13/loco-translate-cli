@@ -54,6 +54,16 @@ const parsedArgus = yargs(hideBin(process.argv))
     describe: 'Provide the name for the extraction file',
     type: 'string',
   })
+  .option('filter', {
+    describe: `Filter tags to include or exclude in the extraction file. 
+Include format: "tag1","tag2","tag3". 
+Exclude format: "!tag1","!tag2","!tag3". 
+Example: --filter="tag1,tag2,tag3" or --filter="!tag1,!tag2,!tag3".`,
+    type: 'array',
+    default: [],
+    requiresArg: false,
+    skipValidation: true,
+  })
   .demandOption(['token', 'translate', 'extract'], 'Please provide all required options').argv;
 
 console.log('Token:', chalk.greenBright(parsedArgus.token));
