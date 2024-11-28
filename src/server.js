@@ -17,7 +17,7 @@ export const server = async () => {
       console.log(chalk.green('Process completed'));
       fs.unlinkSync(`./${cmdArgs.locale}.json`);
     } else {
-      const allTranslation = await getAllTranslation(cmdArgs.token);
+      const allTranslation = await getAllTranslation(cmdArgs.token, cmdArgs.filter);
       Object.keys(allTranslation).forEach(locale => {
         createAndStoreFile(locale, cmdArgs.extract, allTranslation[locale]);
       });

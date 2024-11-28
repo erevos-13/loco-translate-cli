@@ -32,17 +32,20 @@ export const getFromEndpoint = async (locale, token, filter) => {
   }
 };
 
-export const getAllTranslation = async token => {
+export const getAllTranslation = async (token, filter) => {
   try {
+    const filterParam = filter && filter.length > 0 ? `&filter=${filter.join(',')}` : '';
     const allTranslation = await fetch(
-      `${URL}/export/all.json?fallback=en&no-folding=true&key=${token}`
+      `${URL}/export/all.json?fallback=en&no-folding=true&key=${token}${filterParam}`
     ).then(res => res.json());
     if (!allTranslation) {
+      console.log(chalk.red.bgWhite('Error getting all translation'));
       throw new Error('Error getting all translation');
     }
     if (allTranslation.ok) {
       return await allTranslation.json();
     }
+    console.log(chalk.white.bgGray('All translation downloaded'));
     return allTranslation;
   } catch (error) {
     console.error(`Error getting all translation: ${error}`);
