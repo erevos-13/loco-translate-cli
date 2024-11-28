@@ -48,7 +48,7 @@ Please use the locoCli --help to display what params you need to pass
 - `--filter`: Filter tags to include or exclude in the extraction file.
   - **Include format**: `"tag1","tag2","tag3"`
   - **Exclude format**: `"!tag1","!tag2","!tag3"`
-  - **Example**: `--filter="tag1" "tag2" "tag3"` or `--filter="!tag1" "!tag2" "!tag3"` or `--filter="tag1" "!tag2" "tag3"`
+  - **Example**: `--filter "tag1" "tag2" "tag3"` or `--filter "!tag1" "!tag2" "!tag3"` or `--filter s"tag1" "!tag2" "tag3"`
   - _(Optional)_
 
 ---
