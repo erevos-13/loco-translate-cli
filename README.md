@@ -45,10 +45,13 @@ Please use the locoCli --help to display what params you need to pass
 - `--locale`: Provide the locale you want to get. _(Optional)_
 - `--extract`: Path where you want to extract the file. _(Required)_
 - `--filename`: Provide the name for the extraction file. _(Optional)_
+- `--sort`: Sort the locales by name. _(Optional)_
+- `--post`: Post the translation to loco. _(Optional)_
+- `--get`: Get the translation from loco. _(Optional)_
 - `--filter`: Filter tags to include or exclude in the extraction file.
   - **Include format**: `"tag1","tag2","tag3"`
   - **Exclude format**: `"!tag1","!tag2","!tag3"`
-  - **Example**: `--filter "tag1" "tag2" "tag3"` or `--filter "!tag1" "!tag2" "!tag3"` or `--filter s"tag1" "!tag2" "tag3"`
+  - **Example**: `--filter "tag1" "tag2" "tag3"` or `--filter "!tag1" "!tag2" "!tag3"` or `--filter "tag1" "!tag2" "tag3"`
   - _(Optional)_
 
 ---

@@ -30,6 +30,21 @@ console.log(
 );
 
 const parsedArgus = yargs(hideBin(process.argv))
+  .option('post', {
+    describe: 'Post the translation to loco',
+    type: 'boolean',
+    default: true,
+  })
+  .option('get', {
+    describe: 'Get the translation from loco',
+    type: 'boolean',
+    default: true,
+  })
+  .option('sort', {
+    describe: 'Sort the locales by name',
+    type: 'string',
+    default: 'id',
+  })
   .option('token', {
     describe: 'Your API token',
     type: 'string',
