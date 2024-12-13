@@ -48,6 +48,9 @@ Please use the locoCli --help to display what params you need to pass
 - `--sort`: Sort the locales by name. _(Optional)_
 - `--post`: Post the translation to loco. _(Optional)_
 - `--get`: Get the translation from loco. _(Optional)_
+- `--untagAll`: Remove existing tags from any assets matched in the imported file.
+  - **Example**: `--untagAll "tag1" "tag2" "tag3"`
+  - _(Optional)_
 - `--filter`: Filter tags to include or exclude in the extraction file.
   - **Include format**: `"tag1","tag2","tag3"`
   - **Exclude format**: `"!tag1","!tag2","!tag3"`

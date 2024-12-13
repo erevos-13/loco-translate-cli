@@ -8,7 +8,11 @@ import { createAndStoreFile, extractLocale } from './file-manager/index.js';
 export const server = async () => {
   try {
     if (cmdArgs.post) {
-      const postTranslation = await postToEndpoint(cmdArgs.translate, cmdArgs.token);
+      const postTranslation = await postToEndpoint(
+        cmdArgs.translate,
+        cmdArgs.token,
+        cmdArgs.untagAll
+      );
       if (!postTranslation) {
         throw new Error('Error posting translation');
       }

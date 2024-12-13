@@ -30,6 +30,11 @@ console.log(
 );
 
 const parsedArgus = yargs(hideBin(process.argv))
+  .option('untagAll', {
+    describe: 'Remove existing tags from any assets matched in the imported file',
+    type: 'array',
+    default: [],
+  })
   .option('post', {
     describe: 'Post the translation to loco',
     type: 'boolean',
@@ -86,5 +91,8 @@ console.log('File translation:', chalk.greenBright(parsedArgus.translate));
 console.log('Locale:', chalk.greenBright(parsedArgus.locale));
 console.log('Path where want to extract the file:', chalk.greenBright(parsedArgus.extract));
 console.log('Name of the file:', chalk.greenBright(parsedArgus.filename));
+console.log('Untag all:', chalk.greenBright(parsedArgus.untagAll));
+console.log('Post:', chalk.greenBright(parsedArgus.post));
+console.log('Get:', chalk.greenBright(parsedArgus.get));
 
 export default parsedArgus;
