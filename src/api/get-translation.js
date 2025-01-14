@@ -15,6 +15,7 @@ export const getFromEndpoint = async (locale, token, filter, sort) => {
     const filterParam = filter && filter.length > 0 ? `&filter=${filter.join(',')}` : '';
     const sortParam = sort ? `&order=${sort}` : '';
     const url = `${URL}/export/locale/${locale}.json?key=${token}&fallback=en${filterParam}${sortParam}`;
+    console.log(chalk.red.bgGray('URL:'), url);
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',

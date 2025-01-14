@@ -16,6 +16,7 @@ export const getTranslationFile = async filePath => {
 
 export const writeToFileInNewLocation = async (filePath, newLocation, content) => {
   try {
+    await fs.mkdir(newLocation, { recursive: true });
     const fileName = path.basename(filePath);
     const newPath = path.join(newLocation, fileName);
     await fs.writeFile(newPath, content, 'utf8');
