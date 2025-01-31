@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import chalk from 'chalk';
-import fs from 'fs';
+import fs from 'node:fs/promises';
 import { URL } from './../utils/constants.js';
 export const getFromEndpoint = async (locale, token, filter, sort) => {
   try {
@@ -26,7 +26,7 @@ export const getFromEndpoint = async (locale, token, filter, sort) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const jsonTranslation = await response.json();
-    fs.writeFileSync(`${locale}.json`, JSON.stringify(jsonTranslation, null, 2));
+    await fs.writeFile(`${locale}.json`, JSON.stringify(jsonTranslation, null, 2));
     console.log(chalk.white.bgGray('File downloaded'));
   } catch (error) {
     console.error(chalk.red.bgWhite('Error during get from loco'), error);

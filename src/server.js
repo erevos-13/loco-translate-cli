@@ -20,7 +20,7 @@ export const server = async () => {
     if (cmdArgs.get) {
       await getFromEndpoint(cmdArgs.locale, cmdArgs.token, cmdArgs.filter, cmdArgs.sort);
       if (cmdArgs.locale) {
-        extractLocale(cmdArgs.locale, cmdArgs.extract, cmdArgs.filename);
+        await extractLocale(cmdArgs.locale, cmdArgs.extract, cmdArgs.filename);
         fs.unlinkSync(`./${cmdArgs.locale}.json`);
       } else {
         const allTranslation = await getAllTranslation(cmdArgs.token, cmdArgs.filter, cmdArgs.sort);
