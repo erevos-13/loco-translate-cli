@@ -23,10 +23,14 @@ export const postToEndpoint = async (fileToSend, token, untagAll, locale) => {
       );
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    if (response.status === 204) {
+      console.log(chalk.greenBright('Post completed successfully (No Content)'));
+      return { success: true };
+    }
     console.log(chalk.greenBright('Post completed'));
     return await response.json();
   } catch (error) {
-    console.error(chalk.red.bgWhite('Error during post'), JSON.stringify(error, null, 4));
+    console.error(chalk.red.bgWhite('Error during post'), error);
     throw error;
   }
 };

@@ -42,6 +42,6 @@ export const server = async () => {
     }
     console.log(chalk.green('Process completed'));
   } catch (error) {
-    throw new Error(`Error message: ${JSON.stringify(error, null, 4)}`);
+    throw new Error(`Error message: ${error}`);
   }
 };
