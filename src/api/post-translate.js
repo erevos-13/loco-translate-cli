@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import fetch from 'node-fetch';
 import { getTranslationFile } from './../file-manager/index.js';
 import { URL } from './../utils/constants.js';
+import { resolve } from 'node:path';
 export const postToEndpoint = async (fileToSend, token, untagAll, locale) => {
   try {
     const translationFile = await getTranslationFile(fileToSend);
@@ -14,7 +15,7 @@ export const postToEndpoint = async (fileToSend, token, untagAll, locale) => {
       },
       body: JSON.stringify(translationFile),
     });
-
+    console.log(chalk.red.bgGray('URL:'), url);
     if (!response.ok) {
       console.error(
         chalk.red.bgWhite('Error during post response is not ok'),
