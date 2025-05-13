@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import chalk from 'chalk';
 import fs from 'node:fs/promises';
 import { URL } from './../utils/constants.js';
-export const getFromEndpoint = async (locale, token, filter, sort) => {
+export const getFromEndpoint = async (locale, token, filter, sort, fallback) => {
   try {
     console.log(
       chalk.white.green('Getting from loco'),
@@ -14,7 +14,7 @@ export const getFromEndpoint = async (locale, token, filter, sort) => {
 
     const filterParam = filter && filter.length > 0 ? `&filter=${filter.join(',')}` : '';
     const sortParam = sort ? `&order=${sort}` : '';
-    const url = `${URL}/export/locale/${locale}.json?key=${token}&fallback=en${filterParam}${sortParam}`;
+    const url = `${URL}/export/locale/${locale}.json?key=${token}&fallback=${fallback}${filterParam}${sortParam}`;
     console.log(chalk.red.bgGray('URL:'), url);
     const response = await fetch(url, {
       headers: {
@@ -34,12 +34,12 @@ export const getFromEndpoint = async (locale, token, filter, sort) => {
   }
 };
 
-export const getAllTranslation = async (token, filter) => {
+export const getAllTranslation = async (token, filter, fallback) => {
   try {
     const filterParam = filter && filter.length > 0 ? `&filter=${filter.join(',')}` : '';
     const sortParam = sort ? `&order=${sort}` : '';
     const allTranslation = await fetch(
-      `${URL}/export/all.json?fallback=en&no-folding=true&key=${token}${filterParam}${sortParam}`
+      `${URL}/export/all.json?fallback=${fallback}&no-folding=true&key=${token}${filterParam}${sortParam}`
     ).then(res => res.json());
     if (!allTranslation) {
       console.log(chalk.red.bgWhite('Error getting all translation'));

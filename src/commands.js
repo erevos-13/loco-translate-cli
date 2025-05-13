@@ -84,6 +84,11 @@ Example: --filter "tag1" "tag2" "tag3" or --filter="!tag1" "!tag2" "!tag3"`,
     requiresArg: false,
     skipValidation: true,
   })
+  .option('fallback', {
+    describe: 'Fallback locale to use when the translation is not available',
+    type: 'string',
+    default: 'en',
+  })
   .demandOption(['token', 'translate', 'extract'], 'Please provide all required options').argv;
 
 console.log('Token:', chalk.greenBright(parsedArgus.token));

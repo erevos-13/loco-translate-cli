@@ -56,6 +56,8 @@ Please use the locoCli --help to display what params you need to pass
   - **Exclude format**: `"!tag1","!tag2","!tag3"`
   - **Example**: `--filter "tag1" "tag2" "tag3"` or `--filter "!tag1" "!tag2" "!tag3"` or `--filter "tag1" "!tag2" "tag3"`
   - _(Optional)_
+- `--fallback`: Specify a fallback locale to use when a translation is missing. (Optional)
+  - _(Optional)_
 
 ---
 

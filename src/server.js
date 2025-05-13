@@ -11,19 +11,30 @@ export const server = async () => {
       const postTranslation = await postToEndpoint(
         cmdArgs.translate,
         cmdArgs.token,
-        cmdArgs.untagAll
+        cmdArgs.untagAll,
+        cmdArgs.locale
       );
       if (!postTranslation) {
         throw new Error('Error posting translation');
       }
     }
     if (cmdArgs.get) {
-      await getFromEndpoint(cmdArgs.locale, cmdArgs.token, cmdArgs.filter, cmdArgs.sort);
+      await getFromEndpoint(
+        cmdArgs.locale,
+        cmdArgs.token,
+        cmdArgs.filter,
+        cmdArgs.sort,
+        cmdArgs.fallback
+      );
       if (cmdArgs.locale) {
         await extractLocale(cmdArgs.locale, cmdArgs.extract, cmdArgs.filename);
         fs.unlinkSync(`./${cmdArgs.locale}.json`);
       } else {
-        const allTranslation = await getAllTranslation(cmdArgs.token, cmdArgs.filter, cmdArgs.sort);
+        const allTranslation = await getAllTranslation(
+          cmdArgs.token,
+          cmdArgs.filter,
+          cmdArgs.fallback
+        );
         Object.keys(allTranslation).forEach(locale => {
           createAndStoreFile(locale, cmdArgs.extract, allTranslation[locale]);
         });

@@ -2,11 +2,11 @@ import chalk from 'chalk';
 import fetch from 'node-fetch';
 import { getTranslationFile } from './../file-manager/index.js';
 import { URL } from './../utils/constants.js';
-export const postToEndpoint = async (fileToSend, token, untagAll) => {
+export const postToEndpoint = async (fileToSend, token, untagAll, locale) => {
   try {
     const translationFile = await getTranslationFile(fileToSend);
     const untagFilterAll = untagAll.length > 0 ? `&untag-all=${untagAll.join(',')}` : '';
-    const url = `${URL}/import/json?key=${token}&locale=en&ignore-existing=true&tag-absent=obsolete&format=JSON${untagFilterAll}`;
+    const url = `${URL}/import/json?key=${token}&locale=${locale}&ignore-existing=true&tag-absent=obsolete&format=JSON${untagFilterAll}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
