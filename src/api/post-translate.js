@@ -2,12 +2,15 @@ import chalk from 'chalk';
 import fetch from 'node-fetch';
 import { getTranslationFile } from './../file-manager/index.js';
 import { URL } from './../utils/constants.js';
-import { resolve } from 'node:path';
-export const postToEndpoint = async (fileToSend, token, untagAll, locale) => {
+export const postToEndpoint = async (fileToSend, token, locale, params = {}) => {
   try {
     const translationFile = await getTranslationFile(fileToSend);
-    const untagFilterAll = untagAll.length > 0 ? `&untag-all=${untagAll.join(',')}` : '';
-    const url = `${URL}/import/json?key=${token}&locale=${locale}&ignore-existing=true&format=JSON${untagFilterAll}`;
+    const merged = { 'ignore-existing': true, format: 'JSON', ...params };
+    const extraParams = Object.entries(merged)
+      .filter(([, val]) => (Array.isArray(val) ? val.length > 0 : val !== null && val !== undefined && val !== ''))
+      .map(([key, val]) => `${key}=${Array.isArray(val) ? val.join(',') : val}`)
+      .join('&');
+    const url = `${URL}/import/json?key=${token}&locale=${locale}&${extraParams}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {

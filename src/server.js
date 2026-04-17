@@ -11,8 +11,22 @@ export const server = async () => {
       const postTranslation = await postToEndpoint(
         cmdArgs.translate,
         cmdArgs.token,
-        cmdArgs.untagAll,
-        cmdArgs.locale
+        cmdArgs.locale,
+        {
+          'untag-all': cmdArgs.untagAll,
+          'tag-new': cmdArgs.tagNew,
+          'tag-all': cmdArgs.tagAll,
+          'tag-updated': cmdArgs.tagUpdated,
+          'untag-updated': cmdArgs.untagUpdated,
+          'tag-absent': cmdArgs.tagAbsent,
+          'untag-absent': cmdArgs.untagAbsent,
+          'delete-absent': cmdArgs.deleteAbsent || undefined,
+          'ignore-new': cmdArgs.ignoreNew || undefined,
+          'ignore-blank': cmdArgs.ignoreBlank || undefined,
+          'flag-new': cmdArgs.flagNew,
+          'flag-updated': cmdArgs.flagUpdated,
+          index: cmdArgs.index,
+        }
       );
       if (!postTranslation) {
         throw new Error('Error posting translation');

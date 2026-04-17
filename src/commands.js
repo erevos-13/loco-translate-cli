@@ -35,6 +35,63 @@ const parsedArgus = yargs(hideBin(process.argv))
     type: 'array',
     default: [],
   })
+  .option('tagNew', {
+    describe: 'Tag any new assets added during import',
+    type: 'array',
+    default: [],
+  })
+  .option('tagAll', {
+    describe: 'Tag all assets in the imported file',
+    type: 'array',
+    default: [],
+  })
+  .option('tagUpdated', {
+    describe: 'Tag any assets updated during import',
+    type: 'array',
+    default: [],
+  })
+  .option('untagUpdated', {
+    describe: 'Remove tags from any assets updated during import',
+    type: 'array',
+    default: [],
+  })
+  .option('tagAbsent', {
+    describe: 'Tag any assets not found in the imported file',
+    type: 'array',
+    default: [],
+  })
+  .option('untagAbsent', {
+    describe: 'Remove tags from any assets not found in the imported file',
+    type: 'array',
+    default: [],
+  })
+  .option('deleteAbsent', {
+    describe: 'Delete any assets not found in the imported file',
+    type: 'boolean',
+    default: false,
+  })
+  .option('ignoreNew', {
+    describe: 'Skip adding new assets during import',
+    type: 'boolean',
+    default: false,
+  })
+  .option('ignoreBlank', {
+    describe: 'Skip assets with empty translations during import',
+    type: 'boolean',
+    default: false,
+  })
+  .option('flagNew', {
+    describe: 'Flag any new assets added during import',
+    type: 'string',
+  })
+  .option('flagUpdated', {
+    describe: 'Flag any assets updated during import',
+    type: 'string',
+  })
+  .option('index', {
+    describe: 'Specify the key to use as the asset ID: id or text',
+    type: 'string',
+  })
   .option('post', {
     describe: 'Post the translation to loco',
     type: 'boolean',
